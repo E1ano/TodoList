@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="icon" type="image/png" sizes="32x32" href="./images/favicon-32x32.png">
+    <title>TODO</title>
+    <link rel="stylesheet" href="main.css">
+    <link rel="stylesheet" href="adaptive.css">
+</head>
+<body>
+        <div class="container">
+            <div class="header">
+                <div class="header__title">todo</div>
+                <div class="header__theme"></div>
+            </div>
+
+            <form id="form" action="#">
+                <button class="check__icon--main" type="submit"></button>
+                <input id ="form-input" type="text" name="username" placeholder="Create a new todo..." maxlength=36 required>
+            </form>
+
+            <div class="todo__box">
+                <ul class="todo__list list"></ul>
+                <div class="todo__footer footer">
+                    <div class="footer__left"></div>
+                    <div class="footer__center center">
+                        <div class="center__btn center__btn--all footer--hover">All</div>
+                        <div class="center__btn center__btn--active footer--hover">Active</div>
+                        <div class="center__btn center__btn--completed footer--hover">Completed</div>
+                    </div>
+                    <div class="footer__right footer--hover">Clear Completed</div>
+                </div>
+            </div>
+
+            <div class="hint">Drag and drop to reorder list</div>
+        </div>
+
+
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
