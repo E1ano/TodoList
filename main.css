@@ -30,7 +30,7 @@ h1,h2,h3,h4,h5,h6{font-size:inherit;font-weight: inherit;}
     --liTextColor: #494C6B;
     --border: 2px solid #F2F2F2;
 
-
+    --gradient: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
     --plus: url("images/white-plus.svg");
     --themeIconUrl: url("images/icon-moon.svg");
     --mainBgUrl: url("images/background.jpg");
@@ -45,6 +45,7 @@ h1,h2,h3,h4,h5,h6{font-size:inherit;font-weight: inherit;}
     --input: #FFFFFF;
     --beforeBg: #25273D;
 
+    --gradient: linear-gradient(-45deg, rgb(29, 7, 64) 8.5%, rgb(253, 105, 139) 92.2%);
     --plus: url("images/plus.svg");
     --themeIconUrl: url("images/icon-sun.svg");
     --mainBgUrl: url("images/bg-desktop-dark.jpg");
@@ -57,7 +58,7 @@ body {
     padding: 70px 0 52px;
 
     /*background: var(--mainBgUrl) 0 0 / 100%  no-repeat;*/
-    background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+    background: var(--gradient);
     background-size: 400% 400%;
     animation: gradient 15s ease infinite;
 }
