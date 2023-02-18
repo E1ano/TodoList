@@ -177,6 +177,7 @@ body {
     align-items: center;
     padding: 20px 24px;
     border-bottom: var(--border);
+    /*cursor: grab;*/
 }
 
 .list__item--icon {

@@ -1,3 +1,4 @@
+
 window.addEventListener('DOMContentLoaded', () => {
     const list = document.querySelector('.todo__list');
     const input = document.getElementById('form-input');
@@ -12,6 +13,37 @@ window.addEventListener('DOMContentLoaded', () => {
 
     if (localStorage.getItem("isDark") === "true") {
         document.body.classList.toggle("dark-theme");
+    }
+
+    function dragAndDrop() {
+        for (let i = 0; i < list.children.length; i++) {
+            list.children[i].draggable = true;
+
+            list.children[i].ondragover = allowDrop;
+            list.children[i].ondragstart = drag;
+            list.ondrop = drop;
+
+            function allowDrop(event) {
+                event.preventDefault();
+            }
+
+            function drag(event) {
+                event.dataTransfer.setData('id', event.target.id);
+            }
+
+            function drop(event) {
+                const oldId = event.dataTransfer.getData('id');
+                const newId = event.target.id;
+                const oldTodoIndex = todosArray.findIndex((item) => item.id === +oldId);
+                const newTodoIndex = todosArray.findIndex((item) => item.id === +newId);
+                const oldTodo = todosArray[oldTodoIndex];
+                const newTodo = todosArray[newTodoIndex];
+                todosArray[oldTodoIndex] = newTodo;
+                todosArray[newTodoIndex] = oldTodo;
+                checkEmptyArray(todosArray);
+                createLi(todosArray);
+            }
+        }
     }
 
     function changeTheme() {
@@ -59,25 +91,27 @@ window.addEventListener('DOMContentLoaded', () => {
         list.innerHTML = "";
         array.forEach((obj, i) => {
             if(array[i].completed) {
-                list.innerHTML += `<li id="${i}" class="list__item done">
+                list.innerHTML += `<li id="${obj.id}" class="list__item done">
                         <div class="list__item--icon check__icon newIconBg"></div>
                         <div class="list__item--text">${obj.value}</div>
                         <img class="list__item--remove" src="images/cross.svg">
                     </li>`;
             } else {
-                list.innerHTML += `<li id="${i}" class="list__item">
+                list.innerHTML += `<li id="${obj.id}" class="list__item">
                         <div class="list__item--icon check__icon"></div>
                         <div class="list__item--text">${obj.value}</div>
                         <img class="list__item--remove" src="images/cross.svg">
                     </li>`;
             }
         })
+        dragAndDrop();
     }
 
     form.addEventListener('submit', (e) => {
         e.preventDefault();
         if (input.value) {
-            todosArray.push({value:input.value, completed: false});
+            const id = todosArray.length? (Math.max(...todosArray.map((item) => item.id)) + 1) : 1;
+            todosArray.push({value:input.value, completed: false, id});
             createLi(todosArray);
             checkEmptyArray(todosArray);
             form.reset();
@@ -88,8 +122,10 @@ window.addEventListener('DOMContentLoaded', () => {
     });
 
     list.addEventListener('click', (e) => {
+        console.log(e.target);
         if (e.target.classList.contains("list__item--remove")) {
-            todosArray.splice(e.target.parentNode.getAttribute('id'), 1);
+            const todoIndex = todosArray.findIndex((item) => item.id === +e.target.parentNode.getAttribute('id'));
+            todosArray.splice(todoIndex, 1);
             createLi(todosArray);
             checkEmptyArray(todosArray);
         }
@@ -97,11 +133,12 @@ window.addEventListener('DOMContentLoaded', () => {
         if (e.target.classList.contains("list__item--icon")) {
             e.target.parentNode.classList.toggle("done");
             e.target.classList.toggle("newIconBg");
+            const todo = todosArray.find((item) => item.id === +e.target.parentNode.getAttribute('id'));
 
             if (e.target.parentNode.classList.contains("done")) {
-                todosArray[e.target.parentNode.getAttribute("id")].completed = true;
+                todo.completed = true;
             } else {
-                todosArray[e.target.parentNode.getAttribute("id")].completed = false;
+                todo.completed = false;
             }
 
             addArrayToLocalStorage();

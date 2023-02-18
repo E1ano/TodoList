@@ -2,5 +2,6 @@
   "name": "Todo App",
   "version": "1.0.0",
   "dependencies": {
+    "uuid": "^9.0.0"
   }
 }
