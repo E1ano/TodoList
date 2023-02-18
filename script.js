@@ -122,7 +122,6 @@ window.addEventListener('DOMContentLoaded', () => {
     });
 
     list.addEventListener('click', (e) => {
-        console.log(e.target);
         if (e.target.classList.contains("list__item--remove")) {
             const todoIndex = todosArray.findIndex((item) => item.id === +e.target.parentNode.getAttribute('id'));
             todosArray.splice(todoIndex, 1);
